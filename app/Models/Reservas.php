@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
-use App\Models\Enums\EstadoPago;
 
-class Reservas extends Model
-{
+use App\Models\Enums\EstadoPago;
+use CodeIgniter\Model;
+
+class Reservas extends Model{
     protected $table            = 'reservas';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
@@ -46,6 +46,22 @@ class Reservas extends Model
     ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
+
+    public function obtenerReservasDesde($fecha){
+        $builder = $this->db->table($this->table);
+        $builder->select('checkin, checkout');
+        $builder->where('checkout >=', $fecha && 'deleted_at' == null);
+
+        $query = $builder->get();
+        return $query->getResultArray();
+        
+    }
+
+// Pasar las fechas al frontend para usarlas en JavaScript
+ 
+
+
+    
 /*
 COMENTE ESTE CACHO DE CODIGO YA Q LO MANEJO EN LA BASE DE DATOS
     protected $belongsTo = [
@@ -60,3 +76,6 @@ COMENTE ESTE CACHO DE CODIGO YA Q LO MANEJO EN LA BASE DE DATOS
     ];
 */
 }
+
+
+

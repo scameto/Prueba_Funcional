@@ -7,8 +7,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./app:/var/www/app:cached
-      - ./public:/var/www/public:cached
+     - ./:/var/www:cached
     depends_on:
       - mysql
 

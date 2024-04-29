@@ -1,12 +1,12 @@
-<h1>Listado de Reservas</h1>
-<a href="<?= base_url('reservas/create') ?>">Crear Nueva Reserva</a>
-
 <?php if (session()->getFlashdata('message')) : ?>
     <div class="alert alert-success" role="alert">
         <?= session()->getFlashdata('message') ?>
     </div>
 <?php endif; ?>
 
+
+<h1>Listado de Reservas</h1>
+<a href="<?= base_url('reservas/create') ?>">Crear Nueva Reserva</a>
 <table>
     <tr>
         <th>ID</th>
@@ -36,10 +36,4 @@
     </tr>
     <?php endforeach;?>
 
-    <?php if (session()->getFlashdata('message')): ?>
-    <?php foreach (session()->getFlashdata('message') as $coso): ?>
-    <div class="alert alert-success" role="alert">
-        <?=$coso?>
-    </div>
-     <?php endforeach;endif;?>
 </table>
