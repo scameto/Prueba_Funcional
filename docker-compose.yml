@@ -19,8 +19,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: siutel
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_USER: myUser
+      MYSQL_PASSWORD: myPassword
     volumes:
       - db_data:/var/lib/mysql
 
