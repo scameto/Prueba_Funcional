@@ -1,0 +1,15 @@
+# Dockerfile.websocket
+FROM php:8.2-cli
+
+# Establecer un directorio de trabajo alternativo
+WORKDIR /app
+
+# Instalar extensiones PHP necesarias
+RUN docker-php-ext-install pdo pdo_mysql mysqli
+
+# Copiar solo los archivos necesarios
+COPY . /app/
+
+# Comando para ejecutar el servidor de websocket
+CMD ["php", "websocket_server.php"]
+

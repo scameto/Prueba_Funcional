@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/app:cached
+      - ./public:/var/www/public:cached
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: siutel
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8181:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+
+  websocket:
+    build:
+      context: .
+      dockerfile: Dockerfile.websocket
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./websocket_server.php:/app/websocket_server.php
+      - ./vendor:/app/vendor
+    depends_on:
+      - app
+
+volumes:
+  db_data:
