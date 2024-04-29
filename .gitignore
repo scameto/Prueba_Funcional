@@ -131,3 +131,5 @@ node_modules/
 # Database
 
 db_data/
+
+public/css/output.css

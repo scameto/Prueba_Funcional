@@ -31,23 +31,16 @@ RUN apt-get update && apt-get install -y \
     curl \
     gnupg
 
-# Instalar Node.js y npm
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y nodejs \
-    npm 
 
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY composer.json /var/www/html/composer.json
 
-RUN npm install
-
-RUN composer install --no-interaction --no-plugins --no-scripts
-
-RUN cp vendor/codeigniter4/framework/public/index.php public/index.php
-
-RUN cp vendor/codeigniter4/framework/spark spark
+RUN cd /var/www \
+    && composer install --no-interaction --no-plugins --no-scripts \
+    && cp vendor/codeigniter4/framework/public/index.php public/index.php \
+    && cp vendor/codeigniter4/framework/spark spark
 
 # Establece el directorio de trabajo
 WORKDIR /var/www/html
